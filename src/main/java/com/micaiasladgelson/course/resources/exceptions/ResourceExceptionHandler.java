@@ -19,4 +19,12 @@ public class ResourceExceptionHandler {
         StandardError err = new StandardError(Instant.now(), status, error, e.getMessage(), req.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
+
+    @ExceptionHandler(DatabaseException.class)
+    public ResponseEntity<StandardError> database(DatabaseException e, HttpServletRequest req) {
+        String error = "Database integrity error";
+        Integer status = HttpStatus.BAD_REQUEST.value();
+        StandardError err = new StandardError(Instant.now(), status, error, e.getMessage(), req.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
 }
