@@ -43,7 +43,7 @@ public class UserService {
 
     public User update(Long id, User user) {
         Optional<User> userRecovered = userRepository.findById(id);
-        User entity = userRecovered.get();
+        User entity = userRecovered.orElseThrow(() -> new ResourceNotFoundException(id));
         entity.setName(user.getName());
         entity.setEmail(user.getEmail());
         entity.setPhone(user.getPhone());
